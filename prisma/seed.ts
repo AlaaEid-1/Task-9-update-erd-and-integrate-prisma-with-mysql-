@@ -6,46 +6,42 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Seeding database...');
 
-  // Create admin user
   const adminPassword = await createArgonHash('admin123');
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@example.com' },
+    where: { email: 'admin@gmail.com' },
     update: {},
     create: {
       name: 'Admin User',
-      email: 'admin@example.com',
+      email: 'admin@gmail.com',
       password: adminPassword,
       role: 'ADMIN',
     },
   });
 
-  // Create coach user
   const coachPassword = await createArgonHash('coach123');
   const coach = await prisma.user.upsert({
-    where: { email: 'coach@example.com' },
+    where: { email: 'coach@gmail.com' },
     update: {},
     create: {
       name: 'Coach User',
-      email: 'coach@example.com',
+      email: 'coach@gmail.com',
       password: coachPassword,
       role: 'COACH',
     },
   });
 
-  // Create student user
   const studentPassword = await createArgonHash('student123');
   const student = await prisma.user.upsert({
-    where: { email: 'student@example.com' },
+    where: { email: 'student@gmail.com' },
     update: {},
     create: {
       name: 'Student User',
-      email: 'student@example.com',
+      email: 'student@gmail.com',
       password: studentPassword,
       role: 'STUDENT',
     },
   });
 
-  // Create sample courses
   const course1 = await prisma.course.upsert({
     where: { id: 'course-1' },
     update: {},
@@ -53,7 +49,6 @@ async function main() {
       id: 'course-1',
       title: 'Introduction to Node.js',
       description: 'Learn the basics of Node.js development',
-      image: 'https://example.com/nodejs.jpg',
       creatorId: coach.id,
     },
   });
@@ -65,7 +60,6 @@ async function main() {
       id: 'course-2',
       title: 'Advanced TypeScript',
       description: 'Master advanced TypeScript concepts',
-      image: 'https://example.com/typescript.jpg',
       creatorId: coach.id,
     },
   });
